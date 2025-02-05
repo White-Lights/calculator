@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="header">CALCULATOR</div>
+<div class="header"></div>
 <div class="main">
     <div class="calculator">
         <div class="display">
@@ -15,22 +15,30 @@
         </div>
 
         <div class="buttonBox">
-            <button class="operators" data-key="clear">C</button>
-            <button class="operators" data-key="neg">+/-</button>
+            <button class="clear" data-key="clear">C</button>
+            <button class="posNeg" data-key="neg">+/-</button>
+            <button class="decToPercent" data-key="%">%</button>
             <button class="operators" data-key="/">/</button>
+
+            <button class="numbers" data-key="9">9</button>
+            <button class="numbers" data-key="8">8</button>
+            <button class="numbers" data-key="7">7</button>
             <button class="operators" data-key="*">*</button>
-            <button class="operators" data-key="*">9</button>
-            <button class="operators" data-key="*">8</button>
-            <button class="operators" data-key="*">7</button>
-            <button class="operators" data-key="*">-</button>
-            <button class="operators" data-key="*">6</button>
-            <button class="operators" data-key="*">5</button>
-            <button class="operators" data-key="*">4</button>
-            <button class="operators" data-key="*">+</button>
-            <button class="operators" data-key="*">3</button>
-            <button class="operators" data-key="*">2</button>
-            <button class="operators" data-key="*">1</button>
-            <button class="operators" data-key="*">=</button>
+
+            <button class="numbers" data-key="6">6</button>
+            <button class="numbers" data-key="5">5</button>
+            <button class="numbers" data-key="4">4</button>
+            <button class="operators" data-key="-">-</button>
+
+            <button class="numbers" data-key="3">3</button>
+            <button class="numbers" data-key="2">2</button>
+            <button class="numbers" data-key="1">1</button>
+            <button class="operators" data-key="+">+</button>
+
+            <button class="none" data-key="blank"></button>
+            <button class="numbers" data-key="0">0</button>
+            <button class="decimal" data-key=".">.</button>
+            <button class="calculate" data-key="=">=</button>
         </div>
     </div>
 </div>
