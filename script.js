@@ -3,6 +3,7 @@ const operators = document.querySelectorAll(".operators");
 const prevOp = document.querySelector("#previousOp");
 const currentOp = document.querySelector("#currentOp");
 const calcBtn = document.querySelector(".calculate");
+const clear = document.querySelector(".clear");
 
 let op = undefined;
 let leftOperand = "";
@@ -12,6 +13,7 @@ numbers.forEach((e) => e.addEventListener("click", addOperand));
 operators.forEach((e) => e.addEventListener("click", assignOperator));
 calcBtn.addEventListener("click", () => 
     operate(Number(leftOperand), op, Number(rightOperand)))
+clear.addEventListener("click", clearCalc)
 
 function addOperand(event) {
     if(op === undefined) {
@@ -40,7 +42,6 @@ function multiply (a, b) { return a * b };
 function divide(a, b) { return a / b };
 
 function operate(a, op, b) {
-    console.log("is it working");
     let answer;
     switch(op) {
         case "+":
@@ -56,11 +57,19 @@ function operate(a, op, b) {
             answer = divide (a, b);
             break;
     }
-    currentOp.textContent = answer;
+    currentOp.textContent = numberWithCommas(answer.toString());
     prevOp.textContent = "- - - - -";
     return answer;
 }
 
 function numberWithCommas(x) {
     return x.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function clearCalc() {
+    op = undefined;
+    leftOperand = "";
+    rightOperand = "";
+    currentOp.textContent = "- - - - -";
+    prevOp.textContent = "- - - - -";
 }
