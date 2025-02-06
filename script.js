@@ -4,8 +4,10 @@ const prevOp = document.querySelector("#previousOp");
 const currentOp = document.querySelector("#currentOp");
 const calcBtn = document.querySelector(".calculate");
 const clear = document.querySelector(".clear");
+const decimal = document.querySelector(".decimal");
 
 let op = undefined;
+let operandInProgress = "";
 let leftOperand = "";
 let rightOperand = "";
 
@@ -14,26 +16,36 @@ operators.forEach((e) => e.addEventListener("click", assignOperator));
 calcBtn.addEventListener("click", () => 
     operate(Number(leftOperand), op, Number(rightOperand)))
 clear.addEventListener("click", clearCalc)
+decimal.addEventListener("click", addDecimal);
 
 function addOperand(event) {
+    operandInProgress.length < 12 ?
+        operandInProgress += event.target.dataset.key :
+        operandInProgress;
     if(op === undefined) {
-        if(leftOperand.length < 12) {
-            leftOperand += event.target.dataset.key;
-            currentOp.textContent = numberWithCommas(leftOperand);
-            console.log(leftOperand);
-        }
+        leftOperand = operandInProgress;
+        currentOp.textContent = formatNum(leftOperand);
+        console.log(leftOperand);
     } else {
-        if(rightOperand.length < 12) {
-            rightOperand += event.target.dataset.key;
-            currentOp.textContent = numberWithCommas(rightOperand);
-            console.log(rightOperand);
-        }
+        rightOperand = operandInProgress;
+        currentOp.textContent = formatNum(rightOperand);
+        console.log(rightOperand);
     }
 }
 
 function assignOperator(event) {
     op = event.target.dataset.key;
-    prevOp.textContent = `${numberWithCommas(leftOperand)} ${op}`
+    operandInProgress = "";
+    prevOp.textContent = `${formatNum(leftOperand.toString())} ${op}`
+}
+
+function addDecimal() {
+    if(operandInProgress % 1 !== 0) {
+        return;
+    } else {
+        operandInProgress += ".";
+        currentOp.textContent = formatNum(operandInProgress);
+    }
 }
 
 function add(a, b) { return a + b };
@@ -42,7 +54,6 @@ function multiply (a, b) { return a * b };
 function divide(a, b) { return a / b };
 
 function operate(a, op, b) {
-    let answer;
     switch(op) {
         case "+":
             answer = add(a, b);
@@ -57,19 +68,35 @@ function operate(a, op, b) {
             answer = divide (a, b);
             break;
     }
-    currentOp.textContent = numberWithCommas(answer.toString());
+    currentOp.textContent = formatNum(answer);
+    leftOperand = answer;
+    rightOperand = "";
+    op = undefined;
     prevOp.textContent = "- - - - -";
     return answer;
 }
 
 function numberWithCommas(x) {
-    return x.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 function clearCalc() {
     op = undefined;
     leftOperand = "";
     rightOperand = "";
+    operandInProgress = "";
     currentOp.textContent = "- - - - -";
     prevOp.textContent = "- - - - -";
+} 
+
+function formatNum(num) {
+    let arr;
+    if (num % 1 !== 0) {
+        arr = num.toString().split(".");
+        arr[0] = numberWithCommas(arr[0]);
+        num = arr.join(".");
+    } else {
+        num = numberWithCommas(num);
+    }
+    return num;
 }
