@@ -66,6 +66,10 @@ button:active {
     transform: translateY(1px);
 }
 
+.backspace {
+    font-size: 30px;
+}
+
 #previousOp,
 #currentOp {
     text-align: right;

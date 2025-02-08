@@ -6,6 +6,7 @@ const calcBtn = document.querySelector(".calculate");
 const clear = document.querySelector(".clear");
 const decimal = document.querySelector(".decimal");
 const posNeg = document.querySelector(".posNeg");
+const backspace = document.querySelector(".backspace");
 
 let op = undefined;
 let operandInProgress = "";
@@ -19,6 +20,7 @@ calcBtn.addEventListener("click", () =>
 clear.addEventListener("click", clearCalc)
 decimal.addEventListener("click", addDecimal);
 posNeg.addEventListener("click", makeNegative)
+backspace.addEventListener("click", backspaceOperand)
 
 function addOperand(event) {
     operandInProgress.length < 12 ?
@@ -56,7 +58,23 @@ function makeNegative() {
         rightOperand = operandInProgress;
     }
     currentOp.textContent = formatNum(operandInProgress);
-    return operandInProgress.toString();
+    return operandInProgress;
+}
+
+function backspaceOperand() {
+    operandInProgress = operandInProgress.slice(0, operandInProgress.length - 1);
+    if(op === undefined) {
+        leftOperand = operandInProgress;
+    } else {
+        rightOperand = operandInProgress;
+    }
+    console.log(operandInProgress)
+    if(operandInProgress == "") {
+        currentOp.textContent =  "- - - - -"
+    } else {
+        currentOp.textContent = formatNum(operandInProgress);
+    }
+    return operandInProgress;
 }
 
 function add(a, b) { return a + b };

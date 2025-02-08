@@ -1,5 +1,4 @@
 # calculator
 Current tasks:
 - Complete negative button functionality.
-- Add backspace button.
-- Add percentage button functionality to convert % to decimal and vice versa.
+- Create fixed result length so it doesn't overflow the display.
