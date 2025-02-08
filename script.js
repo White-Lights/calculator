@@ -5,6 +5,7 @@ const currentOp = document.querySelector("#currentOp");
 const calcBtn = document.querySelector(".calculate");
 const clear = document.querySelector(".clear");
 const decimal = document.querySelector(".decimal");
+const posNeg = document.querySelector(".posNeg");
 
 let op = undefined;
 let operandInProgress = "";
@@ -17,6 +18,7 @@ calcBtn.addEventListener("click", () =>
     operate(Number(leftOperand), op, Number(rightOperand)))
 clear.addEventListener("click", clearCalc)
 decimal.addEventListener("click", addDecimal);
+posNeg.addEventListener("click", makeNegative)
 
 function addOperand(event) {
     operandInProgress.length < 12 ?
@@ -25,18 +27,16 @@ function addOperand(event) {
     if(op === undefined) {
         leftOperand = operandInProgress;
         currentOp.textContent = formatNum(leftOperand);
-        console.log(leftOperand);
     } else {
         rightOperand = operandInProgress;
         currentOp.textContent = formatNum(rightOperand);
-        console.log(rightOperand);
     }
 }
 
 function assignOperator(event) {
     op = event.target.dataset.key;
+    prevOp.textContent = `${formatNum(leftOperand)} ${op}`
     operandInProgress = "";
-    prevOp.textContent = `${formatNum(leftOperand.toString())} ${op}`
 }
 
 function addDecimal() {
@@ -46,6 +46,17 @@ function addDecimal() {
         operandInProgress += ".";
         currentOp.textContent = formatNum(operandInProgress);
     }
+}
+
+function makeNegative() {
+    operandInProgress = operandInProgress - (operandInProgress * 2);
+    if(op === undefined) {
+        leftOperand = operandInProgress;
+    } else {
+        rightOperand = operandInProgress;
+    }
+    currentOp.textContent = formatNum(operandInProgress);
+    return operandInProgress.toString();
 }
 
 function add(a, b) { return a + b };
@@ -65,7 +76,7 @@ function operate(a, op, b) {
             answer = multiply(a, b);
             break;
         case "/":
-            answer = divide (a, b);
+            answer = divide(a, b);
             break;
     }
     currentOp.textContent = formatNum(answer);
