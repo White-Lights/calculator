@@ -23,9 +23,7 @@ posNeg.addEventListener("click", makeNegative)
 backspace.addEventListener("click", backspaceOperand)
 
 function addOperand(event) {
-    operandInProgress.length < 12 ?
-        operandInProgress += event.target.dataset.key :
-        operandInProgress;
+    operandInProgress += event.target.dataset.key;
     if(op === undefined) {
         leftOperand = operandInProgress;
         currentOp.textContent = formatNum(leftOperand);
@@ -97,6 +95,7 @@ function operate(a, op, b) {
             answer = divide(a, b);
             break;
     }
+    answer = round(answer, 12);
     currentOp.textContent = formatNum(answer);
     leftOperand = answer;
     rightOperand = "";
@@ -122,10 +121,16 @@ function formatNum(num) {
     let arr;
     if (num % 1 !== 0) {
         arr = num.toString().split(".");
+        console.log(arr);
         arr[0] = numberWithCommas(arr[0]);
         num = arr.join(".");
     } else {
         num = numberWithCommas(num);
     }
     return num;
+}
+
+function round(num, precision) {
+    let factor = Math.pow(10, precision);
+    return Math.round(num * factor) / factor;
 }
