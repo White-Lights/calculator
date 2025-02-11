@@ -29,6 +29,7 @@ body {
     background: linear-gradient(#a6eaff, #65dbff);
     border-radius: 30px;
     border: solid 6px #1a738d;
+    box-shadow: 11px 9px rgba(0, 0, 0, .25);
 }
 
 .display {
